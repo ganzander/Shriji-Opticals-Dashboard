@@ -117,7 +117,7 @@ export default function AdminDashboard() {
       ) : (
         <div className="flex flex-col h-screen w-screen items-center justify-center gap-4">
           <h1 className="text-5xl font-semibold text-center">
-            You're Not Authorized
+            You&apos;re Not Authorized
           </h1>
 
           <button
