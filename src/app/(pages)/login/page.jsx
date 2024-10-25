@@ -1,12 +1,10 @@
 "use client";
 import { useState } from "react";
-import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -51,12 +49,10 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-[#eee]">
       <div className="flex flex-1 flex-col overflow-hidden">
         <Navbar setSidebarOpen={setSidebarOpen} />
-
-        {/* Main Content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#eee] dark:bg-black/[0.96] bg-grid-white/[0.03] p-6">
           <div className="max-w-md w-full mx-auto rounded-lg md:rounded-2xl p-7 md:p-8 shadow-2xl bg-white dark:bg-black">
             <h2 className="uppercase font-bold text-xl text-center text-neutral-800 dark:text-neutral-200">
               Log In
@@ -89,7 +85,7 @@ export default function AdminDashboard() {
                   required
                 />
               </LabelInputContainer>
-              <LabelInputContainer className="mb-1">
+              <LabelInputContainer>
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
@@ -102,13 +98,9 @@ export default function AdminDashboard() {
                   required
                 />
               </LabelInputContainer>
-              <Link href="/loginOTP">
-                <small className="text-sm dark:text-xs font-medium text-slate-600 dark:text-slate-200 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Forgot Password
-                </small>
-              </Link>
+
               <button
-                className="relative group/btn mt-4 bg-black text-white dark:from-zinc-900 dark:to-zinc-900  block dark:bg-zinc-800 w-full dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+                className="relative group/btn mt-8 bg-black text-white dark:from-zinc-900 dark:to-zinc-900  block dark:bg-zinc-800 w-full dark:text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
                 type="submit"
               >
                 Log In &rarr;

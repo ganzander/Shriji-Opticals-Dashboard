@@ -4,10 +4,12 @@ import {
   ChevronLeft,
   Home,
   LayoutDashboard,
-  Settings,
   Users,
   LogOut,
   LogIn,
+  Lightbulb,
+  Plus,
+  Minus,
 } from "lucide-react";
 import Link from "next/link";
 import jwt from "jsonwebtoken";
@@ -73,18 +75,35 @@ export default function Sidebar({ setSidebarOpen, sidebarOpen }) {
           Dashboard
         </Link>
         <Link
+          href="/add-item"
+          className="flex items-center px-4 py-2 text-black dark:text-white"
+        >
+          <Plus className="mr-3 h-5 w-5" />
+          Add Item
+        </Link>
+
+        <Link
+          href="/add-item"
+          className="flex items-center px-4 py-2 text-black dark:text-white"
+        >
+          <Minus className="mr-3 h-5 w-5" />
+          Remove Item
+        </Link>
+
+        <Link
           href="#"
           className="flex items-center px-4 py-2 text-black dark:text-white"
         >
           <Users className="mr-3 h-5 w-5" />
           Users
         </Link>
+
         <Link
-          href="/settings"
+          href="#"
           className="flex items-center px-4 py-2 text-black dark:text-white"
         >
-          <Settings className="mr-3 h-5 w-5" />
-          Settings
+          <Lightbulb className="mr-3 h-5 w-5" />
+          Theme
         </Link>
         {decodedToken ? (
           <Link

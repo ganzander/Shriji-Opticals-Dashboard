@@ -26,7 +26,7 @@ export default function Navbar({ setSidebarOpen }) {
 
   if (loading) {
     return (
-      <div className="flex flex-col h-screen w-screen items-center justify-center gap-4">
+      <div className="flex flex-col min-h-screen w-screen items-center justify-center gap-4">
         <h1 className="text-5xl font-semibold text-center">Loading....</h1>
       </div>
     );
@@ -56,8 +56,8 @@ export default function Navbar({ setSidebarOpen }) {
                   alt="User avatar"
                 />
               </div>
-              <span className="ml-2 text-sm font-medium text-black dark:text-white">
-                Ganesh Mangla
+              <span className="ml-2 text-sm font-medium capitalize text-black dark:text-white">
+                {decodedToken.name}
               </span>
             </Link>
           ) : (
