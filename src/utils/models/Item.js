@@ -21,6 +21,11 @@ const opticalSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  images: {
+    type: Array,
+    required: true,
+    default: [],
+  },
 });
 
 module.exports =

@@ -4,14 +4,13 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { FileUpload } from "@/components/ui/file-upload";
 import { SelectInput } from "@/components/ui/selectInput";
 import toast from "react-hot-toast";
 import axios from "axios";
 
 export default function AddItem({ decodedToken }) {
   const router = useRouter();
-  const [files, setFiles] = useState([]);
+
   const [uploadCred, setUploadCred] = useState({
     category: "",
     price: "",
@@ -19,9 +18,10 @@ export default function AddItem({ decodedToken }) {
     name: "",
     brand: "",
   });
+  const [images, setImages] = useState([]);
 
-  function handleFileUpload(files) {
-    setFiles(files);
+  function handleFileUpload(e) {
+    setImages(Array.from(e.target.files));
   }
 
   function handleChange(event) {
@@ -34,11 +34,41 @@ export default function AddItem({ decodedToken }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const { category, price, size, name, brand } = uploadCred;
-    if (!category || !price || !size || !name || !brand) {
+    if (!category || !price || !size || !name || !brand || !images) {
       toast.error("Please fill in the form completely");
-    } else {
-      axios
-        .post("/api/admin/add-item", { category, price, size, name, brand })
+      return;
+    }
+    const urls = [];
+    const url = `https://api.cloudinary.com/v1_1/dd36yv43a/image/upload`;
+    try {
+      for (let i = 0; i < images.length; i++) {
+        const formData = new FormData();
+        formData.append("file", images[i]);
+        formData.append("upload_preset", "shriJiOpticals");
+        try {
+          await axios
+            .post(url, formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((response) => {
+              urls.push(response.data.secure_url);
+            });
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+      }
+
+      await axios
+        .post("/api/admin/add-item", {
+          category,
+          price,
+          size,
+          name,
+          brand,
+          images: urls,
+        })
         .then((result) => {
           if (result.data.Success === true) {
             toast.success(result.data.msg + " with id: " + result.data.itemId);
@@ -46,16 +76,17 @@ export default function AddItem({ decodedToken }) {
             toast.error(result.data.msg);
           }
         });
-
-      setUploadCred({
-        category: "",
-        price: "",
-        size: "",
-        name: "",
-        brand: "",
-      });
-      setFiles([]);
+    } catch (error) {
+      toast.error("Failed to upload files. Please try again.");
     }
+    setUploadCred({
+      category: "",
+      price: "",
+      size: "",
+      name: "",
+      brand: "",
+    });
+    setImages([]);
   }
 
   return (
@@ -66,7 +97,10 @@ export default function AddItem({ decodedToken }) {
             Add Items
           </h2>
 
-          <form className="my-8 w-[90%]" onSubmit={handleSubmit}>
+          <form
+            className="my-8 w-[90%] p-8 dark:bg-black border rounded-lg border-gray-50/[0.4]"
+            onSubmit={handleSubmit}
+          >
             <div className="w-full grid gap-6 md:grid-cols-2">
               {/* CATEGORY */}
               <LabelInputContainer className="mb-4">
@@ -151,11 +185,19 @@ export default function AddItem({ decodedToken }) {
                 />
               </LabelInputContainer>
 
-              {/* FILE UPLOAD */}
-              <div className="mb-4 col-span-full">
-                <FileUpload onChange={handleFileUpload} />
-              </div>
+              {/* IMAGES */}
+              <LabelInputContainer className="mb-4">
+                <Label htmlFor="images">Upload Images</Label>
+                <input
+                  type="file"
+                  multiple
+                  onChange={handleFileUpload}
+                  accept="image/*"
+                  className="flex h-10 w-full border-none bg-white dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm placeholder:text-neutral-700 dark:placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600 disabled:cursor-not-allowed disabled:opacity-50 dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] transition duration-400"
+                />
+              </LabelInputContainer>
             </div>
+
             {/* SUBMIT BUTTON */}
             <div className="flex flex-col w-full justify-center gap-2 items-center">
               <button
@@ -168,8 +210,6 @@ export default function AddItem({ decodedToken }) {
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full col-span-full" />
             </div>
           </form>
-
-          {/* </div> */}
         </div>
       )}
     </main>

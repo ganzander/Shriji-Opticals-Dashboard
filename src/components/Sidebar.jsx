@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import {
   ChevronLeft,
   Home,
-  LayoutDashboard,
-  Users,
   LogOut,
+  Users,
   LogIn,
   Lightbulb,
   Plus,
-  Minus,
+  Eye,
+  Pen,
 } from "lucide-react";
 import Link from "next/link";
 import jwt from "jsonwebtoken";
@@ -67,13 +67,8 @@ export default function Sidebar({ setSidebarOpen, sidebarOpen }) {
           <Home className="mr-3 h-5 w-5" />
           Home
         </Link>
-        <Link
-          href=""
-          className="flex items-center px-4 py-2 text-black dark:text-white"
-        >
-          <LayoutDashboard className="mr-3 h-5 w-5" />
-          Dashboard
-        </Link>
+
+        {/* Add Item */}
         <Link
           href="/add-item"
           className="flex items-center px-4 py-2 text-black dark:text-white"
@@ -82,21 +77,31 @@ export default function Sidebar({ setSidebarOpen, sidebarOpen }) {
           Add Item
         </Link>
 
+        {/* Update Item */}
         <Link
-          href="/add-item"
+          href="/update-item"
           className="flex items-center px-4 py-2 text-black dark:text-white"
         >
-          <Minus className="mr-3 h-5 w-5" />
-          Remove Item
+          <Pen className="mr-3 h-5 w-5" />
+          Update Item
         </Link>
 
+        {/* View Item */}
         <Link
+          href="/view-item"
+          className="flex items-center px-4 py-2 text-black dark:text-white"
+        >
+          <Eye className="mr-3 h-5 w-5" />
+          View Item
+        </Link>
+
+        {/* <Link
           href="#"
           className="flex items-center px-4 py-2 text-black dark:text-white"
         >
           <Users className="mr-3 h-5 w-5" />
           Users
-        </Link>
+        </Link> */}
 
         <Link
           href="#"

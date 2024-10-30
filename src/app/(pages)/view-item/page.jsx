@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
+import AddItem from "@/components/AddItem";
 import jwt from "jsonwebtoken";
-import UpdateItem from "@/components/UpdateItem";
+import ViewItem from "@/components/ViewItem";
 
 export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -40,7 +41,7 @@ export default function AdminDashboard() {
           <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           <div className="flex flex-1 flex-col overflow-hidden">
             <Navbar setSidebarOpen={setSidebarOpen} />
-            <UpdateItem decodedToken={decodedToken} />
+            <ViewItem decodedToken={decodedToken} />
           </div>
         </div>
       ) : (
