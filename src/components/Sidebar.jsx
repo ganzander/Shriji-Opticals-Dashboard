@@ -61,7 +61,7 @@ export default function Sidebar({ setSidebarOpen, sidebarOpen }) {
       </div>
       <nav className="mt-8">
         <Link
-          href="#"
+          href="/"
           className="flex items-center px-4 py-2 text-black dark:text-white"
         >
           <Home className="mr-3 h-5 w-5" />

@@ -2,14 +2,15 @@
 import connectToDatabase from "@/utils/dbconnect/mongoConnection";
 import Optical from "@/utils/models/Item";
 
-export async function POST(req, res) {
-  const { category, price, size, name, brand, images } = await req.json();
+export async function POST(req) {
+  const { category, price, ageCategory, name, brand, images } =
+    await req.json();
   if (!category) {
     return Response.json({ Success: false, msg: "Enter the category" });
   } else if (!price) {
     return Response.json({ Success: false, msg: "Enter the price" });
-  } else if (!size) {
-    return Response.json({ Success: false, msg: "Enter the size" });
+  } else if (!ageCategory) {
+    return Response.json({ Success: false, msg: "Enter the age category" });
   } else if (!name) {
     return Response.json({ Success: false, msg: "Enter the name" });
   } else if (!brand) {
@@ -22,7 +23,7 @@ export async function POST(req, res) {
     const opticalItem = new Optical({
       category,
       price,
-      size,
+      ageCategory,
       name,
       brand,
       images,

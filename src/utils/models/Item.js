@@ -9,7 +9,7 @@ const opticalSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  size: {
+  ageCategory: {
     type: String,
     required: true,
   },

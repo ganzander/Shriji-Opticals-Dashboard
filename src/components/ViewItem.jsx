@@ -4,7 +4,13 @@ import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -25,6 +31,7 @@ export default function ViewItem({ decodedToken }) {
         if (result.data.Success === true) {
           toast.success(result.data.msg);
           setData(result.data.foundItem);
+          console.log(result.data.foundItem);
         } else {
           toast.error(result.data.msg);
         }
@@ -88,14 +95,15 @@ export default function ViewItem({ decodedToken }) {
               </div>
             ) : (
               <div className="max-w-md w-full mx-auto rounded-lg md:rounded-2xl p-7 md:p-8 shadow-2xl bg-white dark:bg-black">
-                <Card className="">
-                  <CardHeader>
+                <Card>
+                  <CardHeader images={data.images} title={data.title} />
+                  <CardContent>
                     <CardTitle>{"Brand: " + data.brand}</CardTitle>
                     <CardTitle>{"Name: " + data.name}</CardTitle>
                     <CardTitle>{"Category: " + data.category}</CardTitle>
-                    <CardTitle>{"Size: " + data.size}</CardTitle>
+                    <CardTitle>{"Age Category: " + data.ageCategory}</CardTitle>
                     <CardTitle>{"Price: " + data.price}</CardTitle>
-                  </CardHeader>
+                  </CardContent>
 
                   <CardFooter className="w-full">
                     <Button onClick={deleteItem}>Delete</Button>

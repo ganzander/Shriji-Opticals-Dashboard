@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
 
 const SelectInput = React.forwardRef(
-  ({ className, options = [], placeholder, ...props }, ref) => {
+  ({ className, options, placeholder, ...props }, ref) => {
     return (
       <div className="p-[2px] rounded-lg transition duration-300 group/input">
         <select

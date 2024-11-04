@@ -14,7 +14,7 @@ export default function AddItem({ decodedToken }) {
   const [uploadCred, setUploadCred] = useState({
     category: "",
     price: "",
-    size: "",
+    ageCategory: "",
     name: "",
     brand: "",
   });
@@ -33,8 +33,8 @@ export default function AddItem({ decodedToken }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { category, price, size, name, brand } = uploadCred;
-    if (!category || !price || !size || !name || !brand || !images) {
+    const { category, price, ageCategory, name, brand } = uploadCred;
+    if (!category || !price || !ageCategory || !name || !brand || !images) {
       toast.error("Please fill in the form completely");
       return;
     }
@@ -64,7 +64,7 @@ export default function AddItem({ decodedToken }) {
         .post("/api/admin/add-item", {
           category,
           price,
-          size,
+          ageCategory,
           name,
           brand,
           images: urls,
@@ -152,20 +152,26 @@ export default function AddItem({ decodedToken }) {
                 />
               </LabelInputContainer>
 
-              {/* SIZE */}
+              {/* AGE CATEGORY */}
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="size">Size</Label>
+                <Label htmlFor="age">Age Category</Label>
                 <SelectInput
-                  id="size"
-                  name="size"
-                  value={uploadCred.size}
+                  id="ageCategory"
+                  name="ageCategory"
+                  value={uploadCred.ageCategory}
                   onChange={handleChange}
                   required
-                  placeholder="Choose Size"
+                  placeholder="Choose Age Category"
                   options={[
-                    { value: "Small", label: "Small" },
-                    { value: "Regular", label: "Regular" },
-                    { value: "Large", label: "Large" },
+                    { label: "Kids (0-12 years)", value: "Kids" },
+                    { label: "Teens (13-19 years)", value: "Teens" },
+                    {
+                      label: "Young Adults (20-35 years)",
+                      value: "YoungAdults",
+                    },
+                    { label: "Adults (36-55 years)", value: "Adults" },
+                    { label: "Seniors (56+ years)", value: "Seniors" },
+                    { label: "Unisex/All Ages", value: "Unisex" },
                   ]}
                 />
               </LabelInputContainer>
