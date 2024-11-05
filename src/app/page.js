@@ -4,6 +4,7 @@ import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 import jwt from "jsonwebtoken";
 import { useRouter } from "next/navigation";
+import HomePage from "@/components/HomePage";
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -42,10 +43,11 @@ export default function AdminDashboard() {
           <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           <div className="flex flex-1 flex-col overflow-hidden">
             <Navbar setSidebarOpen={setSidebarOpen} />
-            <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
-              <h1 className="text-5xl font-semibold capitalize text-center">
+            <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-black/[0.96] bg-grid-white/[0.03] p-6">
+              <h1 className="text-5xl font-semibold  dark:text-white capitalize text-center pb-6">
                 Welcome Back, {decodedToken.name}
               </h1>
+              <HomePage />
             </main>
           </div>
         </div>

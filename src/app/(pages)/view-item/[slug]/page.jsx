@@ -1,14 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 import jwt from "jsonwebtoken";
-import UpdateItem from "@/components/UpdateItem";
+import ViewSingleItem from "@/components/ViewSingleItem";
 
-export default function Page() {
+export default function Page({ params }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [decodedToken, setDecodedToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { slug: itemId } = use(params);
 
   useEffect(() => {
     async function checkAuthToken() {
@@ -21,6 +22,7 @@ export default function Page() {
       }
       setLoading(false);
     }
+
     if (typeof window !== "undefined") {
       checkAuthToken();
     }
@@ -33,6 +35,7 @@ export default function Page() {
       </div>
     );
   }
+
   return (
     <>
       {decodedToken ? (
@@ -40,7 +43,7 @@ export default function Page() {
           <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           <div className="flex flex-1 flex-col overflow-hidden">
             <Navbar setSidebarOpen={setSidebarOpen} />
-            <UpdateItem decodedToken={decodedToken} />
+            <ViewSingleItem itemId={itemId} decodedToken={decodedToken} />
           </div>
         </div>
       ) : (

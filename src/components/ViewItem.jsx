@@ -31,7 +31,6 @@ export default function ViewItem({ decodedToken }) {
         if (result.data.Success === true) {
           toast.success(result.data.msg);
           setData(result.data.foundItem);
-          console.log(result.data.foundItem);
         } else {
           toast.error(result.data.msg);
         }

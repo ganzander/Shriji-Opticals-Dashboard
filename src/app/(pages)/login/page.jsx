@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-export default function AdminDashboard() {
+export default function Page() {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loginCred, setLoginCred] = useState({

@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import AddItem from "@/components/AddItem";
 import jwt from "jsonwebtoken";
 
-export default function AdminDashboard() {
+export default function Page() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [decodedToken, setDecodedToken] = useState(null);
   const [loading, setLoading] = useState(true);

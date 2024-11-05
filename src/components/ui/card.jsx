@@ -2,6 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Image from "next/image";
 
 const Card = React.forwardRef(({ className, ...props }, ref) => (
   <div
@@ -25,11 +26,13 @@ const CardHeader = React.forwardRef(
       {images && images.length > 0 && (
         <Carousel showThumbs={false} showStatus={false} infiniteLoop>
           {images.map((image, index) => (
-            <div key={index}>
+            <div key={index} className="h-[200px] w-full">
               <img
+                width={50}
+                height={50}
                 src={image}
                 alt={`Slide ${index + 1}`}
-                className="rounded-t-xl"
+                className="rounded-t-xl h-full w-full object-cover"
               />
             </div>
           ))}

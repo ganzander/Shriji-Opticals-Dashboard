@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
@@ -9,8 +8,6 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 export default function AddItem({ decodedToken }) {
-  const router = useRouter();
-
   const [uploadCred, setUploadCred] = useState({
     category: "",
     price: "",
@@ -85,6 +82,7 @@ export default function AddItem({ decodedToken }) {
       size: "",
       name: "",
       brand: "",
+      ageCategory: "",
     });
     setImages([]);
   }
