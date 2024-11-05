@@ -4,8 +4,10 @@ import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 import jwt from "jsonwebtoken";
 import UpdateItem from "@/components/UpdateItem";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [decodedToken, setDecodedToken] = useState(null);
   const [loading, setLoading] = useState(true);

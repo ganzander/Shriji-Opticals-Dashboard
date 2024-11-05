@@ -3,7 +3,7 @@ import connectToDatabase from "@/utils/dbconnect/mongoConnection";
 import Optical from "@/utils/models/Item";
 
 export async function POST(req) {
-  const { category, price, ageCategory, name, brand, images } =
+  const { category, price, ageCategory, name, brand, images, gender, color } =
     await req.json();
   if (!category) {
     return Response.json({ Success: false, msg: "Enter the category" });
@@ -17,6 +17,10 @@ export async function POST(req) {
     return Response.json({ Success: false, msg: "Enter the brand" });
   } else if (!images) {
     return Response.json({ Success: false, msg: "Enter the images" });
+  } else if (!gender) {
+    return Response.json({ Success: false, msg: "Enter the gender" });
+  } else if (!color) {
+    return Response.json({ Success: false, msg: "Enter the color" });
   }
 
   try {
@@ -27,6 +31,8 @@ export async function POST(req) {
       name,
       brand,
       images,
+      gender,
+      color,
     });
     const newItem = await Optical.create(opticalItem);
 

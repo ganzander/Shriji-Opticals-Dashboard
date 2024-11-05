@@ -8,7 +8,7 @@ const Card = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border w-full border-zinc-200 bg-white text-zinc-950 shadow dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-50",
+      "rounded-xl border w-full border-zinc-400/[0.5] bg-white text-zinc-950 shadow dark:border-zinc-400/[0.5] dark:bg-zinc-950 dark:text-zinc-50",
       className
     )}
     {...props}
@@ -32,7 +32,7 @@ const CardHeader = React.forwardRef(
                 height={50}
                 src={image}
                 alt={`Slide ${index + 1}`}
-                className="rounded-t-xl h-full w-full object-cover"
+                className="rounded-t-xl h-full w-full object-contain"
               />
             </div>
           ))}

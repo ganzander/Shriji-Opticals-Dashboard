@@ -14,6 +14,8 @@ export default function AddItem({ decodedToken }) {
     ageCategory: "",
     name: "",
     brand: "",
+    color: "",
+    gender: "",
   });
   const [images, setImages] = useState([]);
 
@@ -30,13 +32,24 @@ export default function AddItem({ decodedToken }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const { category, price, ageCategory, name, brand } = uploadCred;
-    if (!category || !price || !ageCategory || !name || !brand || !images) {
+    const { category, price, ageCategory, name, brand, gender, color } =
+      uploadCred;
+    if (
+      !category ||
+      !price ||
+      !ageCategory ||
+      !name ||
+      !brand ||
+      !images ||
+      !gender ||
+      !color
+    ) {
       toast.error("Please fill in the form completely");
       return;
     }
     const urls = [];
     const url = `https://api.cloudinary.com/v1_1/dd36yv43a/image/upload`;
+
     try {
       for (let i = 0; i < images.length; i++) {
         const formData = new FormData();
@@ -65,6 +78,8 @@ export default function AddItem({ decodedToken }) {
           name,
           brand,
           images: urls,
+          gender,
+          color,
         })
         .then((result) => {
           if (result.data.Success === true) {
@@ -91,8 +106,8 @@ export default function AddItem({ decodedToken }) {
     <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#eee] dark:bg-black/[0.96] bg-grid-white/[0.03] p-6">
       {decodedToken && (
         <div className="flex flex-col items-center py-5">
-          <h2 className="w-full text-center pb-5 text-lg sm:text-2xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
-            Add Items
+          <h2 className="w-full text-center pb-5 text-xl md:text-3xl lg:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
+            Add Products
           </h2>
 
           <form
@@ -169,14 +184,45 @@ export default function AddItem({ decodedToken }) {
                     },
                     { label: "Adults (36-55 years)", value: "Adults" },
                     { label: "Seniors (56+ years)", value: "Seniors" },
-                    { label: "Unisex/All Ages", value: "Unisex" },
+                    { label: "All Ages", value: "All Ages" },
                   ]}
+                />
+              </LabelInputContainer>
+
+              {/* GENDER */}
+              <LabelInputContainer className="mb-4">
+                <Label htmlFor="gender">Gender</Label>
+                <SelectInput
+                  id="gender"
+                  name="gender"
+                  value={uploadCred.gender}
+                  onChange={handleChange}
+                  required
+                  placeholder="Choose Gender"
+                  options={[
+                    { label: "Male", value: "Male" },
+                    { label: "Female", value: "Female" },
+                    { label: "Unisex", value: "Unisex" },
+                  ]}
+                />
+              </LabelInputContainer>
+
+              {/* COLOUR */}
+              <LabelInputContainer className="mb-4">
+                <Label htmlFor="color">Colour</Label>
+                <Input
+                  id="color"
+                  name="color"
+                  value={uploadCred.color}
+                  onChange={handleChange}
+                  required
+                  placeholder="Color"
                 />
               </LabelInputContainer>
 
               {/* PRICE */}
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="price">Price</Label>
+                <Label htmlFor="price">Price (&#8377;)</Label>
                 <Input
                   id="price"
                   name="price"

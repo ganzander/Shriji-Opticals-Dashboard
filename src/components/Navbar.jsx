@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 export default function Navbar({ setSidebarOpen }) {
   const [decodedToken, setDecodedToken] = useState(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     async function checkAuthToken() {
       const storedAuthToken = localStorage.getItem("AuthToken");
@@ -33,7 +34,7 @@ export default function Navbar({ setSidebarOpen }) {
   }
 
   return (
-    <header className="flex h-16 items-center justify-between bg-white dark:bg-black px-6 shadow">
+    <header className="flex h-16 items-center justify-between border-b dark:rounded-none rounded-b-lg dark:border-white/[0.3] border-black/[0.5] bg-white dark:bg-black px-6 shadow">
       {decodedToken && (
         <button
           onClick={() => setSidebarOpen(true)}

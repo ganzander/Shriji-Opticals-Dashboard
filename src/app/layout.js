@@ -1,4 +1,5 @@
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 import "./globals.css";
 
 export const metadata = {
@@ -10,8 +11,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="">
       <body className="antialiased">
-        {children}
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

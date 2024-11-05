@@ -52,13 +52,19 @@ export default function ViewSingleItem({ decodedToken, itemId }) {
           {data !== null && (
             <div className="max-w-md w-full mx-auto rounded-lg md:rounded-2xl p-7 md:p-8 shadow-2xl bg-white dark:bg-black">
               <Card>
-                <CardHeader images={data.images} title={data.title} />
+                <CardHeader
+                  className="mb-3"
+                  images={data.images}
+                  title={data.title}
+                />
                 <CardContent>
                   <CardTitle>{"Brand: " + data.brand}</CardTitle>
                   <CardTitle>{"Name: " + data.name}</CardTitle>
                   <CardTitle>{"Category: " + data.category}</CardTitle>
                   <CardTitle>{"Age Category: " + data.ageCategory}</CardTitle>
                   <CardTitle>{"Price: " + data.price}</CardTitle>
+                  <CardTitle>{"Gender: " + data.gender}</CardTitle>
+                  <CardTitle>{"Color: " + data.color}</CardTitle>
                 </CardContent>
 
                 <CardFooter className="w-full">

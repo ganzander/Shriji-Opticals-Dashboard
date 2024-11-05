@@ -9,12 +9,7 @@ const SelectInput = React.forwardRef(
       <div className="p-[2px] rounded-lg transition duration-300 group/input">
         <select
           className={cn(
-            `flex h-10 w-full border-none bg-white dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm 
-            placeholder:text-neutral-700 dark:placeholder:text-neutral-400 
-            focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600
-            disabled:cursor-not-allowed disabled:opacity-50
-            dark:shadow-[0px_0px_1px_1px_var(--neutral-700)]
-            transition duration-400`,
+            `flex h-10 w-full border-none bg-white dark:bg-zinc-800 text-black dark:text-white/[0.5] shadow-input rounded-md px-3 py-2 text-sm placeholder:text-neutral-700 dark:placeholder:text-text-white/[0.5] focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600 disabled:cursor-not-allowed disabled:opacity-50 dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] transition duration-400`,
             className
           )}
           ref={ref}
@@ -22,7 +17,7 @@ const SelectInput = React.forwardRef(
         >
           {placeholder && (
             <option
-              className="placeholder:text-neutral-700 dark:placeholder:text-neutral-400"
+              // className="text-neutral-700 dark:text-white/[0.5]"
               value=""
               disabled
               hidden
@@ -31,7 +26,11 @@ const SelectInput = React.forwardRef(
             </option>
           )}
           {options.map((option, index) => (
-            <option key={index} value={option.value}>
+            <option
+              key={index}
+              value={option.value}
+              className="dark:text-white text-black"
+            >
               {option.label}
             </option>
           ))}

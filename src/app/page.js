@@ -44,7 +44,7 @@ export default function AdminDashboard() {
           <div className="flex flex-1 flex-col overflow-hidden">
             <Navbar setSidebarOpen={setSidebarOpen} />
             <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-black/[0.96] bg-grid-white/[0.03] p-6">
-              <h1 className="text-5xl font-semibold  dark:text-white capitalize text-center pb-6">
+              <h1 className="text-xl md:text-3xl lg:text-5xl font-semibold tracking-tight dark:text-white capitalize text-center pb-6">
                 Welcome Back, {decodedToken.name}
               </h1>
               <HomePage />

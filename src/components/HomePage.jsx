@@ -24,7 +24,10 @@ export default function HomePage() {
     <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {items.map((item, index) => (
-          <div key={index}>
+          <div
+            key={index}
+            className="border dark:border-white/[0.5] border-black/[0.5] rounded-xl"
+          >
             <Card
               onClick={() => {
                 router.push("/view-item/" + item._id);
@@ -32,7 +35,7 @@ export default function HomePage() {
             >
               <CardHeader images={item.images} title={item.title} />
               <CardContent>
-                <CardTitle>{item.name}</CardTitle>
+                <CardTitle className="mt-4">{item.name}</CardTitle>
               </CardContent>
             </Card>
           </div>
