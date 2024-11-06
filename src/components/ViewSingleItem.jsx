@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function ViewSingleItem({ decodedToken, itemId }) {
+  const router = useRouter();
   const [data, setData] = useState(null);
 
   async function deleteItem(e) {
@@ -32,11 +34,19 @@ export default function ViewSingleItem({ decodedToken, itemId }) {
     }
   }
 
+  async function editItem(e) {
+    e.preventDefault();
+    if (!itemId) {
+      toast.error("Please fill in Item Id");
+    } else {
+      router.push("/update-item/" + itemId);
+    }
+  }
+
   useEffect(() => {
     axios.post("/api/admin/view-item", { itemid: itemId }).then((result) => {
       if (result.data.Success === true) {
         setData(result.data.foundItem);
-        console.log(result.data.foundItem);
       }
     });
   }, []);
@@ -68,6 +78,7 @@ export default function ViewSingleItem({ decodedToken, itemId }) {
                 </CardContent>
 
                 <CardFooter className="w-full">
+                  <Button onClick={editItem}>Edit</Button>
                   <Button onClick={deleteItem}>Delete</Button>
                 </CardFooter>
               </Card>

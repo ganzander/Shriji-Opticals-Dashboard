@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -9,15 +9,16 @@ import axios from "axios";
 
 export default function AddItem({ decodedToken }) {
   const [uploadCred, setUploadCred] = useState({
-    category: "",
+    category: null,
     price: "",
-    ageCategory: "",
+    ageCategory: null,
     name: "",
     brand: "",
     color: "",
-    gender: "",
+    gender: null,
   });
   const [images, setImages] = useState([]);
+  const fileInputRef = useRef(null);
 
   function handleFileUpload(e) {
     setImages(Array.from(e.target.files));
@@ -92,14 +93,18 @@ export default function AddItem({ decodedToken }) {
       toast.error("Failed to upload files. Please try again.");
     }
     setUploadCred({
-      category: "",
+      category: null,
       price: "",
-      size: "",
+      ageCategory: null,
       name: "",
       brand: "",
-      ageCategory: "",
+      color: "",
+      gender: null,
     });
     setImages([]);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // Reset the file input
+    }
   }
 
   return (
@@ -240,6 +245,7 @@ export default function AddItem({ decodedToken }) {
                 <Label htmlFor="images">Upload Images</Label>
                 <input
                   type="file"
+                  ref={fileInputRef}
                   multiple
                   onChange={handleFileUpload}
                   accept="image/*"
