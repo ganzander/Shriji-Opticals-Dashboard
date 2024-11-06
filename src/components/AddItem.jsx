@@ -127,10 +127,10 @@ export default function AddItem({ decodedToken }) {
                   required
                   placeholder="Choose Category"
                   options={[
-                    { value: "sunglasses", label: "Sunglasses" },
-                    { value: "powerglass", label: "Power Glass" },
-                    { value: "contactlens", label: "Contact Lens" },
-                    { value: "accessories", label: "Accessories" },
+                    { value: "Sunglasses", label: "Sunglasses" },
+                    { value: "Powerglass", label: "Power Glass" },
+                    { value: "ContactLens", label: "Contact Lens" },
+                    { value: "Accessories", label: "Accessories" },
                   ]}
                 />
               </LabelInputContainer>

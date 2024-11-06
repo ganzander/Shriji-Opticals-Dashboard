@@ -2,48 +2,52 @@
 import connectToDatabase from "@/utils/dbconnect/mongoConnection";
 import Optical from "@/utils/models/Item";
 
-export async function POST(req, res) {
-  const { itemid, category, price, size, name, brand } = await req.json();
-  if (!itemid) {
-    return Response.json({ Success: false, msg: "Enter your item id" });
-  } else if (!category) {
-    return Response.json({ Success: false, msg: "Enter your category" });
-  } else if (!price) {
-    return Response.json({ Success: false, msg: "Enter your price" });
-  } else if (!size) {
-    return Response.json({ Success: false, msg: "Enter your size" });
-  } else if (!name) {
-    return Response.json({ Success: false, msg: "Enter your name" });
-  } else if (!brand) {
-    return Response.json({ Success: false, msg: "Enter your brand" });
+export async function POST(req) {
+  const { itemid, category, price, ageCategory, name, brand, gender, color } =
+    await req.json();
+
+  const requiredFields = {
+    itemid,
+    category,
+    price,
+    name,
+    brand,
+    ageCategory,
+    gender,
+    color,
+  };
+
+  for (const [field, value] of Object.entries(requiredFields)) {
+    if (!value) {
+      return Response.json({ Success: false, msg: `Enter your ${field}` });
+    }
   }
 
-  const findItem = await Optical.findOne({ _id: itemid });
-  if (findItem) {
-    const updateData = {
-      category,
-      price,
-      size,
-      name,
-      brand,
-    };
-    await Optical.updateOne(
-      { _id: itemid },
-      { $set: updateData },
-      {
-        new: true,
-        runValidators: true,
-      }
+  try {
+    const updatedItem = await Optical.findByIdAndUpdate(
+      itemid,
+      { category, price, name, brand, ageCategory, gender, color },
+      { new: true, runValidators: true }
     );
-    return Response.json({
-      Success: true,
-      msg: "Updated the item",
-      itemId: itemid,
-    });
-  } else {
+
+    if (updatedItem) {
+      return Response.json({
+        Success: true,
+        msg: "Updated the item",
+        itemId: itemid,
+        updatedItem,
+      });
+    } else {
+      return Response.json({
+        Success: false,
+        msg: "Invalid Item Id. Re-enter the Item Id.",
+      });
+    }
+  } catch (error) {
     return Response.json({
       Success: false,
-      msg: "Invalid Item Id. Re-enter the Item Id.",
+      msg: "An error occurred while updating the item.",
+      error: error.message,
     });
   }
 }
